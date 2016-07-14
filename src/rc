@@ -1,0 +1,31 @@
+gold =          ffcc00
+gold-black =    ffcc00:000000
+gold-blue =     ffcc00:0000ff
+
+black =         000000
+black-blue =    000000:0000ff
+blue =          0000ff
+blue-black =    0000ff:000000
+
+red =           ff0000
+red-black =     ff0000:000000
+red-blue =      ff0000:0000ff
+
+green =         00ff00
+green-black =   00ff00:000000
+green-blue =    00ff00:0000ff
+
+blue =          0000ff
+blue-black =    0000ff:000000
+
+yellow =        ffff00
+yellow-black =  ffff00:000000
+yellow-blue =   ffff00:0000ff
+
+verdelaura =        336600
+verdelaura-black =  336600:000000
+verdelaura-blue =   336600:0000ff
+
+white =        ffffff
+white-black =  ffffff:000000
+white-blue =   ffffff:0000ff

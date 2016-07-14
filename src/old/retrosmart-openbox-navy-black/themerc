@@ -115,9 +115,9 @@ osd.label.bg: flat solid
 osd.hilight.bg: flat solid
 osd.unhilight.bg: flat solid
 !! OSD colors
-osd.bg.color: #808080
+osd.bg.color: #cccccc
 osd.label.text.color: black
-osd.label.bg.color: #808080
+osd.label.bg.color: #cccccc
 osd.hilight.bg.color: #000080
 osd.unhilight.bg.color: #c0c0c0
 
@@ -132,6 +132,6 @@ osd.button.unpressed.bg: flat solid border
 osd.button.pressed.bg: flat solid border
 osd.button.focused.bg: flat solid border
 
-osd.button.unpressed.bg.color: #808080
+osd.button.unpressed.bg.color: #cccccc
 osd.button.pressed.bg.color: #000000
-osd.button.focused.bg.color: #c0c0c0
+osd.button.focused.bg.color: #999999

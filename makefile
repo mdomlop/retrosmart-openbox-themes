@@ -20,8 +20,8 @@ $(NAME): clean
 
 install: uninstall $(NAME)
 	cp -r $(OUTDIR)/$(NAME)/* $(INSTALLDIR)
-	chown -R root:root $(INSTALLDIR)/$(THEMENAME)-*/openbox-3/
-	chmod -R u=rwX,go=rX $(INSTALLDIR)/$(THEMENAME)-*/openbox-3/
+	chown -R root:root $(INSTALLDIR)/$(THEMENAME)-openbox-*/
+	chmod -R u=rwX,go=rX $(INSTALLDIR)/$(THEMENAME)-openbox-*/
 
 uninstall:
 	rm -Rf $(INSTALLDIR)/$(THEMENAME)-openbox-*/
