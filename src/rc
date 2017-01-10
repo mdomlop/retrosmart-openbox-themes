@@ -25,7 +25,13 @@ yellow-blue =   ffff00:0000ff
 verdelaura =        336600
 verdelaura-black =  336600:000000
 verdelaura-blue =   336600:0000ff
+verdelaura-navy =   336600:000080
 
 white =        ffffff
 white-black =  ffffff:000000
 white-blue =   ffffff:0000ff
+
+navy =         000080
+navy-black =   000080:000000
+white-blue =   000080:0000ff
+
