@@ -7,9 +7,7 @@ PREFIX='/usr'
 INSTALLDIR=$(PREFIX)'/share/themes'
 export ROOT_DIR=${PWD}
 
-$(NAME): clean build
-
-build:
+$(NAME):
 	mkdir -p $(OUTDIR)/$(NAME)
 	cd $(OUTDIR)/$(NAME) && \
 	python $(ROOT_DIR)/src/mkobtheme.py $(ROOT_DIR)/src/rc $(ROOT_DIR)/src/mkrc.py
@@ -22,7 +20,7 @@ build:
 		cp $(SRCDIR)/pixmaps/* "$$dir"; \
 	done
 
-install: uninstall $(NAME)
+install:
 	install -d -m 755 $(INSTALLDIR)
 	cp -r $(OUTDIR)/$(NAME)/* $(INSTALLDIR)
 	chown -R root:root $(INSTALLDIR)/$(THEMENAME)-openbox-*/
