@@ -2,7 +2,6 @@ THEMENAME := 'retrosmart-openbox'
 MYSRCDIR='src'
 PREFIX='/usr'
 INSTALLDIR=$(PREFIX)'/share/themes'
-pkgver='0.2.a'
 TEMPDIR := $(shell mktemp -u --suffix .$(THEMETHEMENAME))
 
 $(THEMENAME):
