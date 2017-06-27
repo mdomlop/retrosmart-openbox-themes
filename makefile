@@ -1,38 +1,41 @@
-THEMENAME='retrosmart'
-SUFFIX='-openbox-themes-out'
-NAME=$(THEMENAME)$(SUFFIX)
-SRCDIR='src'
-OUTDIR='.'
+THEMENAME := 'retrosmart-openbox'
+MYSRCDIR='src'
 PREFIX='/usr'
 INSTALLDIR=$(PREFIX)'/share/themes'
-export ROOT_DIR=${PWD}
+pkgver='0.2.a'
+TEMPDIR := $(shell mktemp -u --suffix .$(THEMETHEMENAME))
 
-$(NAME):
-	mkdir -p $(OUTDIR)/$(NAME)
-	cd $(OUTDIR)/$(NAME) && \
-	python $(ROOT_DIR)/src/mkobtheme.py $(ROOT_DIR)/src/rc $(ROOT_DIR)/src/mkrc.py
-	for i in $(OUTDIR)/$(NAME)/*; \
+$(THEMENAME):
+	python $(MYSRCDIR)/mkobtheme.py $(MYSRCDIR)/rc $(MYSRCDIR)/mkrc.py $(THEMENAME)
+	for i in $(THEMENAME)-*; \
 		do \
-		name=`basename "$$i"`; \
-		dir=$(OUTDIR)/$(NAME)/$$name/openbox-3; \
-		mkdir -p "$$dir"; \
-		mv "$$i"/themerc "$$dir"/; \
-		cp $(SRCDIR)/pixmaps/* "$$dir"; \
+		mkdir -p "$$i"/openbox-3; \
+		mv "$$i"/themerc "$$i"/openbox-3/; \
+		cp $(MYSRCDIR)/pixmaps/* "$$i"/openbox-3/; \
 	done
 
 install:
 	install -d -m 755 $(INSTALLDIR)
-	cp -r $(OUTDIR)/$(NAME)/* $(INSTALLDIR)
-	chown -R root:root $(INSTALLDIR)/$(THEMENAME)-openbox-*/
-	chmod -R u=rwX,go=rX $(INSTALLDIR)/$(THEMENAME)-openbox-*/
+	cp -r $(THEMENAME)-* $(INSTALLDIR)
+	chown -R root:root $(INSTALLDIR)/$(THEMENAME)-*/
+	chmod -R u=rwX,go=rX $(INSTALLDIR)/$(THEMENAME)-*/
 
 uninstall:
-	rm -Rf $(INSTALLDIR)/$(THEMENAME)-openbox-*/
+	rm -Rf $(INSTALLDIR)/$(THEMENAME)-*/
 
 clean:
-	rm -Rf $(OUTDIR)/$(NAME)
+	rm -Rf $(THEMENAME)-*
 
-togit:
+togit: clean
 	git add .
-	git commit -m "Updated from makefile"
+	git commit -m 'Updated from makefile'
 	git push origin
+
+pacman: clean
+	mkdir $(TEMPDIR)
+	cp packages/pacman/PKGBUILD $(TEMPDIR)/
+	cd $(TEMPDIR); makepkg
+	cp $(TEMPDIR)/$(THEMENAME)-*.pkg.tar.xz .
+	@echo Package done!
+	@echo You can install it as root with:
+	@echo pacman -U $(THEMENAME)-*.pkg.tar.xz

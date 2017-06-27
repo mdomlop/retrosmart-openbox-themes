@@ -16,6 +16,11 @@ if sys.argv[2]:
 else:
     mkrc = ('python', 'src/mkrc.py')
 
+if sys.argv[3]:
+    themename = sys.argv[3]
+else:
+    themename = 'retrosmart-openbox'
+
 with open(fname) as f:
     for line in f:
         if not line.strip():
@@ -25,8 +30,8 @@ with open(fname) as f:
             themes[k.strip()] = v.strip()
 
 for t in themes:
-    dname = 'retrosmart-openbox-' + t
-    dnameb = 'retrosmart-openbox-' + t + '-nobuttons'
+    dname = themename + '-' + t
+    dnameb = themename + '-' + t + '-nobuttons'
     md = ('mkdir', dname)
     mdb = ('mkdir', dnameb)
     subprocess.call(md)
