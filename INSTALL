@@ -1,0 +1,13 @@
+Execute:
+--------
+
+    $ make
+
+    # make install
+
+Or for build a Arch Linux packgage:
+-----------------------------------
+
+    $ make pacman
+
+    # pacman -U retrosmart-openbox-*.pkg.xz
