@@ -1,4 +1,5 @@
 ![retrosmart-preview](https://raw.githubusercontent.com/mdomlop/retrosmart-openbox-themes/master/preview.png "Retrosmart look")
+
 Retrosmart openbox themes
 =========================
 
