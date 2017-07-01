@@ -13,7 +13,7 @@ install:
 	install -Dm 644 AUTHORS $(DESTDIR)/$(PREFIX)/share/doc/$(NAME)/AUTHORS
 	install -Dm 644 COPYING $(DESTDIR)/$(PREFIX)/share/licenses/$(NAME)/COPYING
 	install -Dm 644 INSTALL $(DESTDIR)/$(PREFIX)/share/doc/$(NAME)/INSTALL
-	install -Dm 644 README.md $(DESTDIR)/$(PREFIX)/share/doc/$(NAME)/README.md
+	install -Dm 644 README $(DESTDIR)/$(PREFIX)/share/doc/$(NAME)/README
 
 uninstall:
 	rm -rf $(PREFIX)/share/themes/$(NAME)-*/
@@ -24,10 +24,10 @@ clean:
 	rm -rf $(NAME)-* /tmp/tmp.*.$(NAME)
 
 purge: clean
-	rm -f makefile
+	rm -f makefile README.md AUTHORS.md INSTALL.md
 	@echo makefile deleted. Execute configure script to generate it again.
 
-togit: purge
+togit: purge doc
 	git add .
 	git commit -m 'Updated from makefile'
 	git push origin
