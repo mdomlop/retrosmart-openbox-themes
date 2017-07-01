@@ -1,42 +1,32 @@
 #!/usr/bin/env python
 
-# mkobtheme --light white --dark black --active blue --inactive darkgrey
+# mkobt --light white --dark black --active blue --inactive darkgrey
 # --box grey --notify yellow --menu orange -w red
 
+import configparser
+import os
 import argparse
 
-rc = {}
+def get_config(configfile):
+    ''' Get config from config file. Overwrited by command line options. '''
+    # FIXME: Need to validate config
+    config = configparser.ConfigParser()
+    # Hardcoding default config:
+    config['DEFAULT'] = {
+            'light':'#ffffff',
+            'dark':'#000000',
+            'active':'#0000ff',
+            'menu':'#0000ff',
+            'inactive':'#666666',
+            'shadow':'#999999',
+            'box':'#cccccc',
+            'notify':'#ffcc00',
+            'warning':'#990000'
+            }
+    # Get config from config. Works although conf file does not exists:
+    config.read(configfile)
 
-
-def parseargs():
-    global args
-    # Default options:
-    light = '#ffffff'
-    dark = '#000000'
-    active = '#0000ff'
-    inactive = '#666666'
-    shadow = '#999999'
-    box = '#cccccc'
-    notify = '#ffcc00'
-    warning = '#990000'
-    clean = False
-
-    parser = argparse.ArgumentParser(
-            prog='mkobtheme',
-            description='Make an openbox theme'
-            )
-    parser.add_argument('-l', '--light', default=light)
-    parser.add_argument('-d', '--dark', default=dark)
-    parser.add_argument('-a', '--active', default=active)
-    parser.add_argument('-i', '--inactive', default=inactive)
-    parser.add_argument('-s', '--shadow', default=shadow)
-    parser.add_argument('-b', '--box', default=box)
-    parser.add_argument('-n', '--notify', default=notify)
-    parser.add_argument('-w', '--warning', default=warning)
-    parser.add_argument('-m', '--menu')
-    parser.add_argument('-C', '--clean', default=clean, action='store_true')
-
-    args = parser.parse_args()
+    return(config)
 
 
 def automatic(hexstring):
@@ -53,13 +43,8 @@ def automatic(hexstring):
     return(color)
 
 
-def print_rc():
-    for k in rc:
-        print(k + ': ' + rc[k])
-
-
-def main():
-    parseargs()
+def write_rc(theme, directory, nobuttons):
+    rc = {}
 
     number = '0'
     rc['window.client.padding.height'] = number
@@ -107,40 +92,40 @@ def main():
     rc['window.inactive.button.toggled.bg'] = texture
     rc['window.active.button.disabled.bg'] = texture
     rc['window.inactive.button.disabled.bg'] = texture
-    rc['window.active.button.pressed.bg'] = texture
-    if args.clean:
+    if nobuttons:
         texture = 'flat solid'
+    rc['window.active.button.pressed.bg'] = texture
     rc['window.inactive.button.pressed.bg'] = texture
     rc['window.active.button.unpressed.bg'] = texture
     rc['window.inactive.button.unpressed.bg'] = texture
     rc['window.active.button.hover.bg'] = texture
     rc['window.inactive.button.hover.bg'] = texture
 
-    color = args.light
+    color = theme['light']
     rc['osd.button.pressed.box.color'] = color
     rc['window.active.button.disabled.bg.border.color'] = color
     rc['window.active.button.disabled.image.color'] = color
     rc['window.inactive.button.disabled.bg.border.color'] = color
     rc['window.inactive.button.disabled.image.color'] = color
 
-    color = args.dark
+    color = theme['dark']
     rc['border.color'] = color
     rc['osd.button.focused.box.color'] = color
     rc['window.active.button.toggled.bg.border.color'] = color
     rc['window.active.button.toggled.image.color'] = color
     rc['window.inactive.button.toggled.bg.border.color'] = color
     rc['window.inactive.button.toggled.image.color'] = color
-    if args.clean:
-        color = args.active
+    if nobuttons:
+        color = theme['active']
     rc['window.active.button.hover.image.color'] = color
     rc['window.active.button.pressed.image.color'] = color
     rc['window.active.button.unpressed.image.color'] = color
-    if args.clean:
-        color = args.inactive
+    if nobuttons:
+        color = theme['inactive']
     rc['window.inactive.button.hover.image.color'] = color
     rc['window.inactive.button.unpressed.image.color'] = color
 
-    color = args.active
+    color = theme['active']
     rc['osd.hilight.bg.color'] = color
     rc['window.active.client.color'] = color
     rc['window.active.grip.bg.color'] = color
@@ -152,7 +137,7 @@ def main():
 
     rc['window.active.label.text.color'] = automatic(color)
 
-    color = args.inactive
+    color = theme['inactive']
     rc['menu.title.bg.color'] = color
     rc['window.inactive.client.color'] = color
     rc['window.inactive.grip.bg.color'] = color
@@ -164,20 +149,20 @@ def main():
 
     rc['menu.title.text.color'] = automatic(color)
 
-    color = args.shadow
+    color = theme['shadow']
     rc['osd.button.focused.bg.color'] = color
 
     rc['osd.button.focused.text.color'] = automatic(color)
 
-    if args.clean:
-        color = args.active
+    if nobuttons:
+        color = theme['active']
     rc['window.active.button.hover.bg.color'] = color
     rc['window.active.button.pressed.bg.color'] = color
-    if args.clean:
-        color = args.inactive
+    if nobuttons:
+        color = theme['inactive']
     rc['window.inactive.button.hover.bg.color'] = color
 
-    color = args.box
+    color = theme['box']
     rc['osd.bg.color'] = color
     rc['osd.button.unpressed.bg.color'] = color
     rc['osd.label.bg.color'] = color
@@ -189,29 +174,97 @@ def main():
     rc['osd.button.unpressed.text.color'] = automatic(color)
     rc['osd.label.text.color'] = automatic(color)
 
-    if args.clean:
-        color = args.active
+    if nobuttons:
+        color = theme['active']
     rc['window.active.button.unpressed.bg.color'] = color
-    if args.clean:
-        color = args.inactive
+    if nobuttons:
+        color = theme['inactive']
     rc['window.inactive.button.unpressed.bg.color'] = color
 
-    color = args.warning
+    color = theme['warning']
     rc['window.active.button.disabled.bg.color'] = color
     rc['window.inactive.button.disabled.bg.color'] = color
 
-    color = args.notify
+    color = theme['notify']
     rc['window.active.button.toggled.bg.color'] = color
     rc['window.inactive.button.toggled.bg.color'] = color
 
-    color = args.menu or args.active
+    color = theme['menu'] or theme['active']
     rc['menu.items.active.bg.color'] = color
     rc['osd.button.pressed.bg.color'] = color
 
     rc['menu.items.active.text.color'] = automatic(color)
     rc['osd.button.pressed.text.color'] = automatic(color)
 
-    print_rc()
+    themerc = os.path.join(directory, 'themerc')
+    with open(themerc, 'w') as t:
+        for k in rc:
+            print(k + ': ' + rc[k], file=t)
+        t.close()
+
+def install_icons(orig, dest):
+    os.makedirs(dest)
+    for i in os.listdir(orig):
+        o = os.path.join(orig, i)
+        d = os.path.join(dest, i)
+        with open(o, 'r') as src, open(d, 'w') as  dst:
+            for j in open(os.path.join(orig, i), 'r'):
+                print(j, end='', file=dst)
+            src.close()
+            dst.close()
+
+
+def parseargs():
+    ''' Parse arguments from command line. '''
+    # Default options:
+    config = 'theme.ini'  # Configuration file
+    theme = 'DEFAULT'
+    name = 'retrosmart-openbox'
+    icons = 'pixmaps'
+    ALL = False
+    clean = False
+
+    parser = argparse.ArgumentParser(
+            prog='mkobt',
+            description='Makes Openbox themes'
+            )
+
+    parser.add_argument('-c', '--config', default=config)
+    parser.add_argument('-n', '--name', default=name)
+    parser.add_argument('-t', '--theme', default=theme)
+    parser.add_argument('-i', '--icons', default=icons)
+    parser.add_argument('-a', '--all', default=ALL, action='store_true')
+    parser.add_argument('-C', '--clean', default=clean, action='store_true')
+
+    return(parser.parse_args())
+
+
+def main():
+    theme = {}
+    settings = parseargs()
+    config = get_config(settings.config)
+
+    if settings.all:
+        for i in config.sections():
+            for j in config[i]:
+                theme[j] = config[i][j]
+            if settings.clean:
+                directory = os.path.join(settings.name + '-' + i + '-clean', 'openbox-3')
+            else:
+                directory = os.path.join(settings.name + '-' + i, 'openbox-3')
+            install_icons(settings.icons, directory)
+            write_rc(theme, directory, settings.clean)
+    else:
+        for i in config[settings.theme]:
+            theme[i] = config[settings.theme][i]
+
+        if settings.clean:
+            directory = os.path.join(settings.name + '-' + settings.theme + '-clean', 'openbox-3')
+        else:
+            directory = os.path.join(settings.name + '-' + settings.theme, 'openbox-3')
+        install_icons(settings.icons, directory)
+        write_rc(theme, directory, settings.clean)
+
 
 
 if __name__ == '__main__':

@@ -14,7 +14,7 @@ source=("git+https://github.com/mdomlop/${_pkgname}.git")
 md5sums=('SKIP')
 license=('GPL3')
 depends=('')
-makedepends=('git')
+makedepends=('git' 'python')
 optdepends=('retrosmart-gtk-themes: The corresponding GTK themes'
             'retrosmart-icon-themes: The corresponding icon theme'
             'retrosmart-wallpapers: The corresponding backgrounds project'

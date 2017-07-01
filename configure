@@ -1,0 +1,24 @@
+#!/bin/sh
+
+name=retrosmart-openbox
+themes=()
+
+function makefile {
+
+echo include makefile.mk
+
+for i in $(cat src/theme.ini| grep -F [ | tr -d [ | tr -d ])
+do
+    test $i == DEFAULT && continue
+    themes+=($name-$i)
+    echo $name-$i:
+    echo -e '\t'python src/mkobt.py -c 'src/theme.ini' -i 'src/pixmaps' -t $i -n '$(NAME)'
+    themes+=($name-$i-clean)
+    echo $name-$i-clean:
+    echo -e '\t'python src/mkobt.py -c 'src/theme.ini' -i 'src/pixmaps' -t $i -n '$(NAME) -C'
+done
+
+echo '$(NAME)': ${themes[*]}
+}
+
+makefile > makefile
