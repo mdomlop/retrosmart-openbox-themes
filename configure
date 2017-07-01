@@ -21,8 +21,8 @@ done
 echo '$(NAME)': ${themes[*]}
 
 echo README.md: preview.png
-echo -e '\t@echo ![retrosmart-preview]\(https://raw.githubusercontent.com/mdomlop/'$name'-themes/master/preview.png \"Retrosmart look\"\) > README.md'
-echo -e '\n\t'@cat README '>>' README.md
+echo -e '\t@echo ![retrosmart-preview]\(https://raw.githubusercontent.com/mdomlop/'$name'-themes/master/preview.png \"Retrosmart look\"\)' '>' README.md
+echo -e '\t'@cat README '>>' README.md
 
 echo AUTHORS.md:
 echo -e '\t'@cat AUTHORS '>>' AUTHORS.md
