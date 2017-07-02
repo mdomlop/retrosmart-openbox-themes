@@ -32,7 +32,7 @@ togit: purge doc
 	git commit -m 'Updated from makefile'
 	git push origin
 
-pacman: clean
+pacman-remote: clean
 	mkdir $(TEMPDIR)
 	cp packages/pacman/PKGBUILD $(TEMPDIR)/
 	cd $(TEMPDIR); makepkg
@@ -41,7 +41,7 @@ pacman: clean
 	@echo You can install it as root with:
 	@echo pacman -U $(NAME)-*.pkg.tar.xz
 
-pacman-local: clean
+pacman: clean
 	mkdir $(TEMPDIR)
 	tar cf $(TEMPDIR)/$(NAME)-themes.tar ../$(NAME)-themes
 	cp packages/pacman/local/PKGBUILD $(TEMPDIR)/
