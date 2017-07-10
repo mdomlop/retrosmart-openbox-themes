@@ -35,7 +35,7 @@ def automatic(hexstring):
 
     r, g, b = tuple(bytes.fromhex(hexstring))
 
-    if (r * 0.299 + g * 0.587 + b * 0.114) > 140:  # 186
+    if (r * 0.299 + g * 0.587 + b * 0.114) > 140:  # 186 # 140
         color = 'black'
     else:
         color = 'white'
