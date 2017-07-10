@@ -49,9 +49,9 @@ def write_rc(theme, directory, nobuttons):
     number = '0'
     rc['window.client.padding.height'] = number
 
-    number = '2'
-    rc['border.width'] = number
-    rc['menu.separator.width'] = number
+    border = theme['border']
+    rc['border.width'] = border
+    rc['menu.separator.width'] = border
 
     number = '5'
     rc['menu.overlap'] = number
