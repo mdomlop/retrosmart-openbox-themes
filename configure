@@ -13,9 +13,6 @@ do
     themes+=($name-$i)
     echo $name-$i:
     echo -e '\t'python src/mkobt.py -c 'src/theme.ini' -i 'src/pixmaps' -t $i -n '$(NAME)'
-    themes+=($name-$i-clean)
-    echo $name-$i-clean:
-    echo -e '\t'python src/mkobt.py -c 'src/theme.ini' -i 'src/pixmaps' -t $i -n '$(NAME) -C'
 done
 
 echo '$(NAME)': ${themes[*]}
