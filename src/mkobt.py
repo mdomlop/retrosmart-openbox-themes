@@ -43,7 +43,7 @@ def automatic(hexstring):
     return(color)
 
 
-def write_rc(theme, directory, nobuttons):
+def write_rc(theme, directory):
     rc = {}
 
     number = '0'
@@ -92,8 +92,6 @@ def write_rc(theme, directory, nobuttons):
     rc['window.inactive.button.toggled.bg'] = texture
     rc['window.active.button.disabled.bg'] = texture
     rc['window.inactive.button.disabled.bg'] = texture
-    if nobuttons:
-        texture = 'flat solid'
     rc['window.active.button.pressed.bg'] = texture
     rc['window.inactive.button.pressed.bg'] = texture
     rc['window.active.button.unpressed.bg'] = texture
@@ -115,13 +113,9 @@ def write_rc(theme, directory, nobuttons):
     rc['window.active.button.toggled.image.color'] = color
     rc['window.inactive.button.toggled.bg.border.color'] = color
     rc['window.inactive.button.toggled.image.color'] = color
-    if nobuttons:
-        color = theme['active']
     rc['window.active.button.hover.image.color'] = color
     rc['window.active.button.pressed.image.color'] = color
     rc['window.active.button.unpressed.image.color'] = color
-    if nobuttons:
-        color = theme['inactive']
     rc['window.inactive.button.hover.image.color'] = color
     rc['window.inactive.button.unpressed.image.color'] = color
 
@@ -154,12 +148,8 @@ def write_rc(theme, directory, nobuttons):
 
     rc['osd.button.focused.text.color'] = automatic(color)
 
-    if nobuttons:
-        color = theme['active']
     rc['window.active.button.hover.bg.color'] = color
     rc['window.active.button.pressed.bg.color'] = color
-    if nobuttons:
-        color = theme['inactive']
     rc['window.inactive.button.hover.bg.color'] = color
 
     color = theme['box']
@@ -174,11 +164,7 @@ def write_rc(theme, directory, nobuttons):
     rc['osd.button.unpressed.text.color'] = automatic(color)
     rc['osd.label.text.color'] = automatic(color)
 
-    if nobuttons:
-        color = theme['active']
     rc['window.active.button.unpressed.bg.color'] = color
-    if nobuttons:
-        color = theme['inactive']
     rc['window.inactive.button.unpressed.bg.color'] = color
 
     color = theme['warning']
@@ -222,7 +208,6 @@ def parseargs():
     name = 'retrosmart-openbox'
     icons = 'pixmaps'
     ALL = False
-    clean = False
 
     parser = argparse.ArgumentParser(
             prog='mkobt',
@@ -234,7 +219,6 @@ def parseargs():
     parser.add_argument('-t', '--theme', default=theme)
     parser.add_argument('-i', '--icons', default=icons)
     parser.add_argument('-a', '--all', default=ALL, action='store_true')
-    parser.add_argument('-C', '--clean', default=clean, action='store_true')
 
     return(parser.parse_args())
 
@@ -248,22 +232,16 @@ def main():
         for i in config.sections():
             for j in config[i]:
                 theme[j] = config[i][j]
-            if settings.clean:
-                directory = os.path.join(settings.name + '-' + i + '-clean', 'openbox-3')
-            else:
-                directory = os.path.join(settings.name + '-' + i, 'openbox-3')
+            directory = os.path.join(settings.name + '-' + i, 'openbox-3')
             install_icons(settings.icons, directory)
-            write_rc(theme, directory, settings.clean)
+            write_rc(theme, directory)
     else:
         for i in config[settings.theme]:
             theme[i] = config[settings.theme][i]
 
-        if settings.clean:
-            directory = os.path.join(settings.name + '-' + settings.theme + '-clean', 'openbox-3')
-        else:
-            directory = os.path.join(settings.name + '-' + settings.theme, 'openbox-3')
+        directory = os.path.join(settings.name + '-' + settings.theme, 'openbox-3')
         install_icons(settings.icons, directory)
-        write_rc(theme, directory, settings.clean)
+        write_rc(theme, directory)
 
 
 
