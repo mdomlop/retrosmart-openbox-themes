@@ -4,39 +4,34 @@ _pkgver_year=2017
 _pkgver_month=06
 _pkgver_day=27
 
-_pkgname=retrosmart-openbox-themes
-pkgver=0
-pkgname=${_pkgname}-${pkgver}
+_gitname=retrosmart-openbox-themes
+pkgver=local
+pkgname=${_gitname}-git
 pkgrel=1
-pkgdesc="Retrosmart icon theme."
-url="https://github.com/mdomlop/${_pkgname}"
-source=("git+https://github.com/mdomlop/${_pkgname}.git")
+pkgdesc="Retrosmart Openbox theme."
+url="https://github.com/mdomlop/${_gitname}"
+source=("${_gitname}.tar")
 md5sums=('SKIP')
 license=('GPL3')
-depends=('')
 makedepends=('git' 'python')
 optdepends=('retrosmart-gtk-themes: The corresponding GTK themes'
-            'retrosmart-icon-themes: The corresponding icon theme'
+            'retrosmart-icon-theme: The corresponding icon theme'
             'retrosmart-wallpapers: The corresponding backgrounds project'
             'retrosmart-x11-cursors: The corresponding X11 cursor theme'
             'retrosmart-xfwm4-themes: The corresponding XFwm4 themes')
 arch=('any')
 group=('retrosmart')
 
-conflicts=(${_pkgname})
-provides=(${_pkgname})
-
-pkgver() {
-  cd ${srcdir}/${_pkgname}
-  git rev-list --count HEAD
-}
+conflicts=(${_gitname})
+provides=(${_gitname})
 
 build() {
-    cd "${srcdir}/${_pkgname}"
+    cd "${srcdir}/${_gitname}"
+    ./configure
     make
     }
 
 package() {
-    cd "${srcdir}/${_pkgname}"
-    make install PREFIX=${pkgdir}/usr OUTDIR=/tmp
+    cd "${srcdir}/${_gitname}"
+    make install PREFIX=${pkgdir}/usr
 }
