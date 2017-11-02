@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # mkobt --light white --dark black --active blue --inactive darkgrey
 # --box grey --notify yellow --menu orange -w red
