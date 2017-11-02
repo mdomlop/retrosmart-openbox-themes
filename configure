@@ -12,22 +12,10 @@ do
     test $i == DEFAULT && continue
     themes+=($name-$i)
     echo $name-$i:
-    echo -e '\t'python src/mkobt.py -c 'src/theme.ini' -i 'src/pixmaps' -t $i -n '$(NAME)'
+    echo -e '\t'python3 src/mkobt.py -c 'src/theme.ini' -i 'src/pixmaps' -t $i -n '$(NAME)'
 done
 
-echo '$(NAME)': ${themes[*]}
-
-echo README.md: preview.png
-echo -e '\t@echo ![retrosmart-preview]\(https://raw.githubusercontent.com/mdomlop/'$name'-themes/master/preview.png \"Retrosmart look\"\) > README.md'
-echo -e '\t'@echo '>>' README.md
-echo -e '\t'@cat README '>>' README.md
-
-echo AUTHORS.md:
-echo -e '\t'@cat AUTHORS '>' AUTHORS.md
-echo INSTALL.md:
-echo -e '\t'@cat INSTALL '>' INSTALL.md
-
-echo doc: AUTHORS.md INSTALL.md README.md
+echo '$(NAME)': docs ${themes[*]}
 }
 
 makefile > makefile

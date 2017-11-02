@@ -53,3 +53,18 @@ An example of how the theme section should look in your `rc.xml`:
                 <slant>Normal</slant>
             </font>
         </theme>
+
+INSTALLATION
+------------
+
+Execute:
+
+        $ ./configure
+        $ make
+        # make install
+
+For uninstall run:
+
+        # make uninstall
+
+Please read <INSTALL.md> for more information.

@@ -5,6 +5,18 @@ TEMPDIR := $(shell mktemp -u --suffix .$(NAME))
 
 $(NAME):
 
+docs: AUTHORS.md INSTALL.md README.md
+
+README.md: README preview.png
+	@echo ![retrosmart-preview]\(https://raw.githubusercontent.com/mdomlop/$(NAME)-themes/master/preview.png \"Retrosmart look\"\) > README.md
+	@cat README >> README.md
+
+AUTHORS.md: AUTHORS
+	@cat $^ > $@
+
+INSTALL.md: INSTALL
+	@cat $^ > $@
+
 install:
 	install -d -m 755 $(PREFIX)'/share/themes'
 	cp -r $(BASE)-* $(PREFIX)'/share/themes'
