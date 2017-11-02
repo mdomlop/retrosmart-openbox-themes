@@ -1,3 +1,4 @@
 makefile
 *.pkg.tar.xz
 retrosmart-openbox-*
+.*.kate-swp
