@@ -8,7 +8,7 @@ $(NAME):
 docs: AUTHORS.md INSTALL.md README.md
 
 README.md: README preview.png
-	@echo ![retrosmart-preview]\(https://raw.githubusercontent.com/mdomlop/$(NAME)-themes/master/preview.png \"Retrosmart look\"\) > README.md
+	@echo ![retrosmart-preview]\(https://github.com/mdomlop/$(NAME)/blob/master/preview.png \"Retrosmart look\"\) > README.md
 	@cat README >> README.md
 
 AUTHORS.md: AUTHORS

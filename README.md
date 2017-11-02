@@ -1,4 +1,4 @@
-![retrosmart-preview](https://raw.githubusercontent.com/mdomlop/retrosmart-openbox-themes-themes/master/preview.png "Retrosmart look")
+![retrosmart-preview](https://github.com/mdomlop/retrosmart-openbox-themes/blob/master/preview.png "Retrosmart look")
 Retrosmart Openbox themes
 =========================
 
@@ -68,4 +68,4 @@ For uninstall run:
 
         # make uninstall
 
-Please read <INSTALL.md> for more information.
+Please read [INSTALL.md](https://github.com/mdomlop/retrosmart-openbox-themes/blob/master/INSTALL.md) for more information.
