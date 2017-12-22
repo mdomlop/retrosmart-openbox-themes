@@ -12,10 +12,10 @@ do
     test $i == DEFAULT && continue
     themes+=($name-$i)
     echo $name-$i:
-    echo -e '\t'python3 src/mkobt.py -c 'src/theme.ini' -i 'src/pixmaps' -t $i -n '$(NAME)'
+    echo -e '\t'python3 src/mkobt.py -c 'src/theme.ini' -i 'src/pixmaps' -t $i -n '$(EXECUTABLE_NAME)'
 done
 
-echo '$(NAME)': docs ${themes[*]}
+echo '$(EXECUTABLE_NAME)': ${themes[*]}
 }
 
 makefile > makefile

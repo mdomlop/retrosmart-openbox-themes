@@ -1,0 +1,14 @@
+Source: retrosmart-openbox-themes
+Section: main
+Priority: optional
+Maintainer: Manuel Domínguez López <mdomlop@gmail.com>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.8
+Homepage: https://github.com/mdomlop/retrosmart-openbox-themes
+
+Package: retrosmart-openbox-themes
+Architecture: all
+Provides: retrosmart-openbox-themes
+Conflicts: retrosmart-openbox-themes-git
+Depends: openbox (>= 3)
+Description: A retrosmart look theme for Openbox.
