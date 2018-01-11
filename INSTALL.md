@@ -18,8 +18,17 @@ Install instructions
         $ make pkg
         # pacman -U retrosmart-*.pkg.xz
 
+## Packaging:
 
-You can also install it from AUR. I you have yaourt installed:
+- Debian:
 
-        $ yaourt -S retrosmart-openbox-theme
+        $ ./configure
+        $ make dpkg
+        # dpkg -i retrosmart-openbox-themes_*_all.deb
+
+- Arch Linux:
+
+You can also install it from AUR. I you have yaourt installed.
+
+        $ yaourt -S retrosmart-openbox-themes
 

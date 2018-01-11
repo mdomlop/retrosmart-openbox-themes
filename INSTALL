@@ -15,7 +15,7 @@ Install instructions
 
 - Execute:
 
-        $ make pkg
+        $ make pacman
         # pacman -U retrosmart-*.pkg.xz
 
 
